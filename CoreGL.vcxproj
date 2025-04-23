@@ -140,7 +140,6 @@
     <ClCompile Include="src\core\graphics\commons\fbo.cpp" />
     <ClCompile Include="src\core\graphics\commons\rbo.cpp" />
     <ClCompile Include="src\core\graphics\GUI\Elements\Image.cpp" />
-    <ClCompile Include="src\core\util\math.cpp" />
     <ClCompile Include="src\core\data\info.cpp" />
     <ClCompile Include="src\core\data\time.cpp" />
     <ClCompile Include="src\core\file\mtl.cpp" />
@@ -176,7 +175,6 @@
     <ClInclude Include="src\core\graphics\commons\fbo.hpp" />
     <ClInclude Include="src\core\graphics\commons\rbo.hpp" />
     <ClInclude Include="src\core\graphics\GUI\Elements\Image.hpp" />
-    <ClInclude Include="src\core\util\math.hpp" />
     <ClInclude Include="src\core\core.hpp" />
     <ClInclude Include="src\core\data\info.hpp" />
     <ClInclude Include="src\core\data\time.hpp" />
