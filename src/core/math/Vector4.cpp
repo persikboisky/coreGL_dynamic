@@ -1,83 +1,155 @@
-#include "Vector4.hpp"
-#include "Vector2.hpp"
-#include "Vector3.hpp"
-#include <math.h>
+#include "Vectors.hpp"
+#include "Matrixes.hpp"
+#include <cmath>
 
 using namespace math;
 
-Vector4::Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
+Vector4::Vector4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+
+Vector4 Vector4::operator+(const Vector4 &vec4)
 {
+    return Vector4(
+        this->x + vec4.x,
+        this->y + vec4.y,
+        this->z + vec4.z,
+        this->w + vec4.w
+    );
 }
 
-Vector4::Vector4(float x, Vector3 vector3) : x(x), y(vector3.x), z(vector3.y), w(vector3.z)
+Vector4 Vector4::operator-(const Vector4 &vec4)
 {
+    return Vector4(
+        this->x - vec4.x,
+        this->y - vec4.y,
+        this->z - vec4.z,
+        this->w - vec4.w
+    );
 }
 
-Vector4::Vector4(Vector3 vector3, float w) : x(vector3.x), y(vector3.y), z(vector3.z), w(w)
+Vector4 Vector4::operator*(const Vector4 &vec4)
 {
+    return Vector4(
+        this->x * vec4.x,
+        this->y * vec4.y,
+        this->z * vec4.z,
+        this->w * vec4.w
+    );
 }
 
-Vector4::Vector4(Vector2 vector2_1, Vector2 vector2_2) : x(vector2_1.x), y(vector2_1.y), z(vector2_2.x), w(vector2_2.y)
+Vector4 Vector4::operator/(const Vector4 &vec4)
 {
+    return Vector4(
+        this->x / vec4.x,
+        this->y / vec4.y,
+        this->z / vec4.z,
+        this->w / vec4.w
+    );
 }
 
-Vector4::Vector4(Vector2 vector2, float z, float w) : x(vector2.x), y(vector2.y), z(z), w(w)
+Vector4 Vector4::operator*(const float &value)
 {
+    return Vector4(
+        this->x * value,
+        this->y * value,
+        this->z * value,
+        this->w * value
+    );
 }
 
-Vector4::Vector4(float x, Vector2 vector2, float w) : x(x), y(vector2.x), z(vector2.y), w(w)
+Vector4 Vector4::operator/(const float &value)
 {
+    return Vector4(
+        this->x / value,
+        this->y / value,
+        this->z / value,
+        this->w / value
+    );
 }
 
-Vector4::Vector4(float x, float y, Vector2 vector2) : x(x), y(y), z(vector2.x), w(vector2.y)
+Vector4 Vector4::normalize(const Vector4 &vec4)
 {
+    const float LENGTH = Vector4::length(vec4);
+    return Vector4(
+        vec4.x / LENGTH,
+        vec4.y / LENGTH,
+        vec4.z / LENGTH,
+        vec4.w / LENGTH
+    );
 }
 
-Vector4 Vector4::operator + (Vector4 vector4)
+float Vector4::length(const Vector4 &vec4)
 {
-	return Vector4(
-		this->x + vector4.x,
-		this->y + vector4.y,
-		this->z + vector4.z,
-		this->w + vector4.w
-	);
+    return sqrtf(
+        powf(vec4.x, 2) +
+        powf(vec4.y, 2) +
+        powf(vec4.z, 2) +
+        powf(vec4.w, 2)
+    );
 }
 
-Vector4 Vector4::operator - (Vector4 vector4)
+float Vector4::dot(const Vector4 &vec4_1, const Vector4 &vec4_2)
 {
-	return Vector4(
-		this->x - vector4.x,
-		this->y - vector4.y,
-		this->z - vector4.z,
-		this->w - vector4.w
-	);
+    return vec4_1.x * vec4_2.x + vec4_1.y * vec4_2.y + 
+    vec4_1.z * vec4_2.z + vec4_1.w * vec4_2.w;
 }
 
-Vector4 Vector4::operator * (Vector4 vector4)
+float Vector4::distance(const Vector4&  vec4_1, const Vector4& vec4_2)
 {
-	return Vector4(
-		this->x * vector4.x,
-		this->y * vector4.y,
-		this->z * vector4.z,
-		this->w * vector4.w
-	);
+    return sqrtf(
+        powf(vec4_1.x - vec4_2.x, 2) +
+        powf(vec4_1.y - vec4_2.y, 2) +
+        powf(vec4_1.z - vec4_2.z, 2) +
+        powf(vec4_1.w - vec4_2.w, 2)
+    );
 }
 
-Vector4 Vector4::operator / (Vector4 vector4)
+Vector4 Vector4::normalize()
 {
-	return Vector4(
-		this->x / vector4.x,
-		this->y / vector4.y,
-		this->z / vector4.z,
-		this->w / vector4.w
-	);
+    const float LENGTH = this->length();
+    return Vector4 (
+        this->x / LENGTH,
+        this->y / LENGTH,
+        this->z / LENGTH,
+        this->w / LENGTH
+    );
 }
 
-void Vector4::normalize()
+void Vector4::normal()
 {
-	float length = (float)sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2) + pow(this->w, 2));
-	this->x = x / length;
-	this->y = y / length;
-	this->z = z / length;
-	this->w = w / length;
+    const float LENGTH = this->length();
+    this->x /= LENGTH;
+    this->y /= LENGTH;
+    this->z /= LENGTH;
+    this->w /= LENGTH;
+}
+
+float Vector4::length() const
+{
+    return sqrtf(
+        powf(this->x, 2) +
+        powf(this->y, 2) +
+        powf(this->z, 2) +
+        powf(this->w, 2)
+    );
+}
+
+float Vector4::dot(const Vector4&  vec4) const
+{
+    return this->x * vec4.x + this->y * vec4.y + 
+    this->z * vec4.z + this->w * vec4.w;
+}
+
+float Vector4::distance(const Vector4& vec4) const
+{
+    return sqrt(
+        powf(this->x - vec4.x, 2) +
+        powf(this->y - vec4.y, 2) +
+        powf(this->z - vec4.z, 2) +
+        powf(this->w - vec4.w, 2)
+    );
+}
+
+auto Vector4::operator*(Matrix4 mat4) -> Vector4
+{
+    return Matrix4::multiply(Vector4(this->x, this->y, this->z, this->w), mat4.getArray());
 }
